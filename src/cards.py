@@ -1,8 +1,8 @@
 import random
 
 SUITS = [
-    ['diamonds', 'd', 'red'],
     ['hearts',   'h', 'red'],
+    ['diamonds', 'd', 'red'],
     ['clubs',    'C', 'black'],
     ['spades',   'S', 'black']
 ]
