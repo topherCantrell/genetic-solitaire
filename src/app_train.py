@@ -1,11 +1,11 @@
 
-import board
-import cards
+import board as BOARD
+import cards as CARDS
 
 
-deck = cards.make_deck()
-cards.shuffle_deck(deck)
+deck = CARDS.make_deck()
+CARDS.shuffle_deck(deck)
 
-brd = board.new_board(deck)
+board = BOARD.new_board(deck)
 
-board.show_board(brd)
+BOARD.show_board(board)
