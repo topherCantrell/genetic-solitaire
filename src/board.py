@@ -72,19 +72,17 @@ def _make_card_run(cds, pos, sep):
 def show_board(board):
 
     print('Foundation:')
-    print('   0 h :', _make_card_run(board['foundation'][0], -1, ''))
-    print('   1 d :', _make_card_run(board['foundation'][1], -1, ''))
-    print('   2 C :', _make_card_run(board['foundation'][2], -1, ''))
-    print('   3 S :', _make_card_run(board['foundation'][3], -1, ''))
+    print('  Fh :', _make_card_run(board['foundation'][0], -1, ''))
+    print('  Fd :', _make_card_run(board['foundation'][1], -1, ''))
+    print('  FC :', _make_card_run(board['foundation'][2], -1, ''))
+    print('  FS :', _make_card_run(board['foundation'][3], -1, ''))
 
     print('Stacks:')
     for j in range(len(board['stacks'])):
         stk = board['stacks'][j]
-        num = str(j + 4)
-        if len(num) == 1:
-            num = ' ' + num
-        print('  ' + num + ' :',
+        num = str(j)
+        print('  S' + num + ' :',
               _make_card_run(stk, board['stacks_pos'][j], '||'))
 
     print('Pile:')
-    print('  11 :', _make_card_run(board['pile'], board['pile_pos'], '>>'))
+    print('   P :', _make_card_run(board['pile'], board['pile_pos'], '>>'))
