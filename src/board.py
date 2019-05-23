@@ -21,7 +21,7 @@ def get_score(board):
 def new_board(deck):
     ret = {
         'pile': [],
-        'pile_pos': 24,
+        'pile_pos': 21,  # Not 24 ... we start with the first flip
         'stacks': [[], [], [], [], [], [], []],
         'stacks_pos': [0, 1, 2, 3, 4, 5, 6],
         'foundation': {'hearts': [], 'diamonds': [], 'clubs': [], 'spades': []}

@@ -10,8 +10,8 @@ is accessible (the rest of the stack moves with it). The stacks are named 'S0', 
 letter 'h' targets the head of the stack. Thus 'S3h' or 'S0e'. The target 'S' by itself means
 the first empty stack.
 
-The top flipped-over card of the pile is accessible. This target is 'Ph'. The next set
-of cards can be flipped with the target 'Pf'. This is not a move. No cards change position.
+The top flipped-over card of the pile is accessible. This target is 'P'. The next set
+of cards can be flipped with the move 'P'. This is not a card move. No cards change position.
 
 End of Game:
 
@@ -19,6 +19,7 @@ The game is over when there are no more moves or the maximum number of moves has
 We'll start with a high value and reduce it with collected stats.
 
 '''
+from _operator import pos
 
 
 def _does_fit(src_card, dst_card, is_stacks):
@@ -96,6 +97,26 @@ def find_moves(board):
             if _does_fit(card, board['stacks'][dst][-1], True):
                 ret.append('S{}h-S{}'.format(src, dst))
 
+    # Moving cards from P to Foundation
+    pos = board['pile_pos']
+    card = board['pile'][pos]
+    if board['foundation'][card[1][0]]:
+        # Stack on previous
+        if _does_fit(card, board['foundation'][card[1][0]][-1], False):
+            ret.append('P-F')
+    else:
+        # Aces to empty
+        if card[0][0] == 1:
+            ret.append('P-F')
+
+    # TODO Moving cards from P to Stacks
+
+    # Flipping cards.
+    if len(board['pile']) < 3 and board['pile_pos'] == 0:
+        pass
+    else:
+        ret.append('P')
+
     return ret
 
 
@@ -130,6 +151,30 @@ def make_move(move, board):
         board['stacks'][src] = board['stacks'][src][:src_pos]
         if len(board['stacks'][src]) <= board['stacks_pos'][src]:
             board['stacks_pos'][src] -= 1
+        return
+
+    # Moving a card from the pile to the foundation
+    if move == 'P-F':
+        pos = board['pile_pos']
+        card = board['pile'][pos]
+        board['pile'] = board['pile'][:pos] + board['pile'][pos + 1:]
+        board['foundation'][card[1][0]].append(card)
+        if pos == len(board['pile']):
+            pos = len(board['pile']) - 3
+            if pos < 0:
+                pos = 0
+            board['pile_pos'] = pos
+        return
+
+    # Flipping cards.
+    if move == 'P':
+        pos = board['pile_pos']
+        if pos == 0:
+            pos = len(board['pile'])
+        pos = pos - 3
+        if pos < 0:
+            pos = 0
+        board['pile_pos'] = pos
         return
 
     raise Exception('Unimplemented move ' + move)
