@@ -86,7 +86,7 @@ def find_moves(board):
         if board['foundation'][fid]:
             # Stack on previous
             if _does_fit(card, board['foundation'][fid][-1], False):
-                ret.append('S{}e-F'.format(src, card[1][1]))
+                ret.append('S{}e-F'.format(src))
         else:
             # Aces to empty
             if card[0][0] == 1:
