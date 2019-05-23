@@ -18,6 +18,32 @@ VALUES = [
 ]
 
 
+def get_long_suit_name(sname):
+    if sname == 'h':
+        return 'hearts'
+    elif sname == 'd':
+        return 'diamonds'
+    elif sname == 'C':
+        return 'clubs'
+    elif sname == 'S':
+        return 'spades'
+    else:
+        raise Exception(sname)
+
+
+def get_short_suit_name(longname):
+    if longname == 'hearts':
+        return 'h'
+    elif longname == 'diamonds':
+        return 'd'
+    elif longname == 'clubs':
+        return 'C'
+    elif longname == 'spades':
+        return 'S'
+    else:
+        raise Exception(longname)
+
+
 def get_short_name(card):
     return card[0][1] + card[1][1]
 

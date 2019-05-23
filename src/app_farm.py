@@ -1,3 +1,4 @@
+import random
 
 import board as BOARD
 import cards as CARDS
@@ -31,7 +32,7 @@ def play_auto(num_games):
             print(moves)
             if not moves:
                 break
-            MOVES.make_move(moves[0], board)
+            MOVES.make_move(random.choice(moves), board)
             BOARD.show_board(board)
 
         score = BOARD.get_score(board)
@@ -64,6 +65,6 @@ def play_cli():
 
 if __name__ == '__main__':
 
-    # play_auto(1000)
+    play_auto(1000)
 
-    play_cli()
+    # play_cli()
