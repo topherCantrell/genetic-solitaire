@@ -122,9 +122,12 @@ def find_moves(board):
 
     # Moving cards from P to Stacks
     # 'P-S?'
-    for dst in range(7):
-        if _does_fit(card, board['stacks'][dst], True):
-            ret.append('P-S{}'.format(dst))
+    if board['pile']:
+        pos = board['pile_pos']
+        card = board['pile'][pos]
+        for dst in range(7):
+            if _does_fit(card, board['stacks'][dst], True):
+                ret.append('P-S{}'.format(dst))
 
     # Flipping cards.
     # 'P'
@@ -172,6 +175,8 @@ def _remove_from_pile(board):
     # Remove a card from the head of the pile. Automatically flip the next three
     # if needed so we never run out of cards.
     pos = board['pile_pos']
+    if pos < 0 or pos >= len(board['pile']):
+        raise Exception('OH NO' + str(pos))
     card = board['pile'][pos]
     board['pile'] = board['pile'][:pos] + board['pile'][pos + 1:]
     if pos == len(board['pile']):

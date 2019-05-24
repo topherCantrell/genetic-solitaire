@@ -62,4 +62,5 @@ def show_board(board):
               _make_card_run(stk, board['stacks_pos'][j], '||'))
 
     print('Pile:')
-    print('   P :', _make_card_run(board['pile'], board['pile_pos'], '>>'))
+    print('   P :', _make_card_run(
+        board['pile'], board['pile_pos'], '>>'), board['pile_pos'])

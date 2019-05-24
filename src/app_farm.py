@@ -19,6 +19,9 @@ Game facts used to weigh moves:
 
 
 def play_auto(num_games):
+
+    best_score = 0
+
     for _ in range(num_games):
 
         deck = CARDS.make_deck()
@@ -27,16 +30,23 @@ def play_auto(num_games):
         board = BOARD.new_board(deck)
         BOARD.show_board(board)
 
-        for m in range(100):  # Limit to 100 moves
+        for m in range(200):  # Limit to 100 moves
             moves = MOVES.find_moves(board)
             print(moves)
             if not moves:
                 break
-            MOVES.make_move(random.choice(moves), board)
+            m = random.choice(moves)
+            print('Move:', m)
+            MOVES.make_move(m, board)
             BOARD.show_board(board)
 
         score = BOARD.get_score(board)
         print('Score', score)
+
+        if score > best_score:
+            best_score = score
+
+    print(best_score)
 
 
 def play_cli():
@@ -65,6 +75,6 @@ def play_cli():
 
 if __name__ == '__main__':
 
-    play_auto(1000)
+    play_auto(2000)
 
     # play_cli()
