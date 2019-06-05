@@ -63,4 +63,4 @@ def show_board(board):
 
     print('Pile:')
     print('   P :', _make_card_run(
-        board['pile'], board['pile_pos'], '>>'), board['pile_pos'])
+        board['pile'], board['pile_pos'], '>>'))

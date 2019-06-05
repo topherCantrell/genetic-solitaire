@@ -30,7 +30,7 @@ def play_auto(num_games):
         board = BOARD.new_board(deck)
         BOARD.show_board(board)
 
-        for m in range(200):  # Limit to 100 moves
+        for m in range(5000):  # Limit to 100 moves
             moves = MOVES.find_moves(board)
             print(moves)
             if not moves:
@@ -75,6 +75,6 @@ def play_cli():
 
 if __name__ == '__main__':
 
-    play_auto(2000)
+    play_auto(1000)
 
     # play_cli()
