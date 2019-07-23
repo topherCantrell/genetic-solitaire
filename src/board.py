@@ -8,32 +8,7 @@ Terminology:
 
 '''
 
-import cards as CARDS
-
-
-def get_score(board):
-    cnt = 0
-    for i in ['hearts', 'diamonds', 'clubs', 'spades']:
-        cnt = cnt + len(board['foundation'][i])
-    return cnt
-
-
-def new_board(deck):
-    ret = {
-        'pile': [],
-        'pile_pos': 21,  # Not 24 ... we start with the first flip
-        'stacks': [[], [], [], [], [], [], []],
-        'stacks_pos': [0, 1, 2, 3, 4, 5, 6],
-        'foundation': {'hearts': [], 'diamonds': [], 'clubs': [], 'spades': []}
-    }
-
-    for i in range(1, 8):
-        for x in range(i):
-            ret['stacks'][i - 1].append(deck.pop())
-
-    ret['pile'] = deck
-
-    return ret
+import cards
 
 
 def _make_card_run(cds, pos, sep):
@@ -46,21 +21,45 @@ def _make_card_run(cds, pos, sep):
     return ret.strip()
 
 
-def show_board(board):
+class SolitaireBoard:
 
-    print('Foundation:')
-    print('  Fh :', _make_card_run(board['foundation']['hearts'], -1, ''))
-    print('  Fd :', _make_card_run(board['foundation']['diamonds'], -1, ''))
-    print('  FC :', _make_card_run(board['foundation']['clubs'], -1, ''))
-    print('  FS :', _make_card_run(board['foundation']['spades'], -1, ''))
+    def __init__(self, draw_count=3):
+        self.draw_count = draw_count
+        self.pile = []
+        self.pile_pos = 24 - draw_count  # Not 24 -- we start with some flipped
+        self.stacks = [[] * 7]
+        self.stacks_pos = [0, 1, 2, 3, 4, 5, 6]
+        self.foundation = {'hearts': [], 'diamonds': [], 'clubs': [], 'spades': []}
 
-    print('Stacks:')
-    for j in range(len(board['stacks'])):
-        stk = board['stacks'][j]
-        num = str(j)
-        print('  S' + num + ' :',
-              _make_card_run(stk, board['stacks_pos'][j], '||'))
+        deck = cards.make_deck()
+        cards.shuffle_deck(deck)
 
-    print('Pile:')
-    print('   P :', _make_card_run(
-        board['pile'], board['pile_pos'], '>>'))
+        # Make the stacks
+        for i in range(1, 8):
+            for x in range(i):
+                self.stacks[i - 1].append(deck.pop())
+
+        # The rest is the pile
+        self.pile = deck
+
+    def get_score(self):
+        cnt = 0
+        for i in ['hearts', 'diamonds', 'clubs', 'spades']:
+            cnt = cnt + len(board.foundation[i])
+        return cnt
+
+    def __str__(self):
+        ret = 'Foundation:'
+        ret += '  Fh : ' + _make_card_run(board.foundation['hearts'], -1, '')
+        ret += '  Fd : ', _make_card_run(board.foundation['diamonds'], -1, '')
+        ret += '  FC : ', _make_card_run(board.foundation['clubs'], -1, '')
+        ret += '  FS : ', _make_card_run(board.foundation['spades'], -1, '')
+
+        ret += 'Stacks:'
+        for j in range(len(board.stacks)):
+            stk = board.stacks[j]
+            num = str(j)
+            ret += '  S' + num + ' : ' + _make_card_run(stk, board.stacks_pos[j], '||')
+
+        ret += 'Pile:'
+        ret += '   P : ', _make_card_run(board.pile, board.pile_pos, '>>')
