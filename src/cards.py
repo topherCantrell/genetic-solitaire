@@ -25,6 +25,9 @@ class Card:
         self.short_name = VALUES[value] + SUITS[suit][0]
         self.color = SUITS[suit][1]
 
+    def __str__(self):
+        return short_name
+
 
 def make_deck():
     deck = []
