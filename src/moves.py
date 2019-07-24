@@ -21,13 +21,13 @@ We'll start with a high value and reduce it with collected stats.
 
 All possible moves:
 
-S?e-F    Move a card from the end of the stacks to the foundation
-F?-S?    Move a card from the foundation to the stacks
-S?e-S?   Move a card (one card) from the end of a stack to another stack
-S?h-S?   Moving groups of cards (more than one) around the stacks
+S?e-F    Move a card from the end of stack? to the foundation
+F?-S?    Move a card from foundation? to the end of stack?
+S?e-S?   Move one card from the end of stack? to the end of stack?
+S?h-S?   Move a group of cards (always more than one) from stack? to the end of stack?
 P-F      Move a card from the pile to the foundation
-P-S?     Move a card from the pile to the stacks
-P        Flipping cards on the pile 
+P-S?     Move a card from the pile to the end of stack?
+P        Flip next set of cards on the pile 
 
 '''
 
