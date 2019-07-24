@@ -24,11 +24,8 @@ def play_auto(num_games):
 
     for _ in range(num_games):
 
-        deck = CARDS.make_deck()
-        CARDS.shuffle_deck(deck)
-
-        board = BOARD.new_board(deck)
-        BOARD.show_board(board)
+        board = BOARD.SolitaireBoard()
+        print(board)
 
         for m in range(5000):  # Limit to 100 moves
             moves = MOVES.find_moves(board)
@@ -38,9 +35,9 @@ def play_auto(num_games):
             m = random.choice(moves)
             print('Move:', m)
             MOVES.make_move(m, board)
-            BOARD.show_board(board)
+            print(board)
 
-        score = BOARD.get_score(board)
+        score = board.get_score()
         print('Score', score)
 
         if score > best_score:

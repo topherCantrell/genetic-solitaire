@@ -1,5 +1,11 @@
 import random
 
+SUIT_REV = {
+    'h': 'hearts',
+    'd': 'diamonds',
+    'C': 'clubs',
+    'S': 'spades'
+}
 SUITS = {
     'hearts': ['h', 'red'],
     'diamonds': ['d', 'red'],
