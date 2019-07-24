@@ -48,7 +48,7 @@ def _does_fit(src_card, dst_list, is_stacks):
         # Red/Black alternating
         if src_card.color == dst_card.color:
             return False
-        # SRC value must be DST+1
+        # SRC value must be DST-1
         if src_card.value == dst_card.value - 1:
             return True
         return False
@@ -83,7 +83,7 @@ def find_moves(board):
         if _does_fit(card, board.foundation[card.suit], False):
             ret.append('S{}e-F'.format(src))
 
-    # Moving cards from foundation back to stacks
+    # Moving cards from foundation to stacks
     # 'F?-S?
     for suit in ['hearts', 'diamonds', 'clubs', 'spades']:
         if not board.foundation[suit]:
@@ -196,12 +196,12 @@ def _remove_from_pile(board):
 
 
 def _flip_next_pile(board):
-    # Flip the next three cards on the pile. Handle wrap around when we reach
+    # Flip the next card(s) on the pile. Handle wrap around when we reach
     # the end.
     pos = board.pile_pos
     if pos == 0:
         pos = len(board.pile)
-    pos = pos - 3
+    pos = pos - board.draw_count
     if pos < 0:
         pos = 0
     board.pile_pos = pos
